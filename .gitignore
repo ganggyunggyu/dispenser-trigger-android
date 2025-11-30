@@ -1,0 +1,31 @@
+# Android Studio / IntelliJ IDEA
+.idea/
+*.iml
+
+# Gradle
+.gradle/
+build/
+local.properties
+
+# Android
+*.apk
+*.ap_
+*.aab
+*.dex
+
+# Kotlin
+*.kotlin_module
+
+# Mac
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+
+# Log files
+*.log
+
+# Generated files
+app/release/
+app/debug/
