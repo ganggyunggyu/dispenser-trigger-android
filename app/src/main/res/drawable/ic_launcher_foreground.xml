@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    ic_launcher_foreground.xml
+
+    앱 아이콘의 전경 이미지 (Vector Drawable).
+
+    [디자인]
+    - 배출기/트리거를 상징하는 간단한 아이콘
+    - 화살표가 나가는 모양 (발사/트리거 의미)
+    - 흰색 아이콘 (어두운 배경과 대비)
+
+    [적응형 아이콘 가이드라인]
+    - 중앙 66dp x 66dp 영역에 주요 그래픽 배치
+    - 가장자리는 마스킹될 수 있으므로 여백 확보
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!--
+        배경 원 (선택적)
+        중앙에 흰색 반투명 원으로 아이콘 영역 강조
+    -->
+    <path
+        android:fillColor="#40FFFFFF"
+        android:pathData="M54,54m-30,0a30,30 0,1 1,60 0a30,30 0,1 1,-60 0" />
+
+    <!--
+        트리거/발사 아이콘
+        오른쪽을 향하는 화살표 + 박스 조합
+        "무언가를 내보내는" 의미 전달
+    -->
+
+    <!-- 박스 (배출기 본체) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M38,42L38,66L52,66L52,42L38,42ZM42,46L48,46L48,62L42,62L42,46Z" />
+
+    <!-- 화살표 (발사 방향) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M55,54L68,54L68,48L78,54L68,60L68,54L55,54Z" />
+
+    <!-- 작은 점들 (발사 효과) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M62,50L64,50L64,52L62,52Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M62,56L64,56L64,58L62,58Z" />
+
+</vector>

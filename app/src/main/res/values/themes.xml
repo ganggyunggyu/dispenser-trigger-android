@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    themes.xml
+
+    앱의 테마 정의.
+
+    [테마란]
+    - 앱 전체에 적용되는 스타일 설정
+    - 색상, 폰트, 버튼 스타일 등을 일괄 정의
+    - Material Design 가이드라인 기반
+
+    [Material3 사용]
+    - Material Design 3 (Material You)
+    - 동적 색상 지원 (Android 12+)
+    - 모던한 UI 컴포넌트
+
+    [수정 시 참고]
+    - 다크 모드: values-night/themes.xml 추가
+    - 커스텀 컴포넌트 스타일: 여기서 오버라이드
+-->
+<resources>
+    <!--
+        앱 메인 테마
+
+        [상속]
+        - Theme.Material3.DayNight.NoActionBar
+        - 액션바 없는 Material3 테마
+        - DayNight: 시스템 설정에 따라 라이트/다크 자동 전환
+
+        [왜 NoActionBar인가]
+        - 이 앱은 단순 UI로 액션바 불필요
+        - 전체 화면 활용도 높임
+        - 필요 시 Toolbar로 직접 구현 가능
+    -->
+    <style name="Theme.DispenserTrigger" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- ============================================================ -->
+        <!-- 기본 색상 정의 -->
+        <!-- ============================================================ -->
+
+        <!--
+            Primary 색상
+            - 앱의 주요 브랜드 색상
+            - 버튼, 앱바, 강조 요소에 사용
+        -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primary_variant</item>
+        <item name="colorOnPrimary">@color/on_primary</item>
+
+        <!--
+            Secondary 색상
+            - 보조 강조 색상
+            - FAB, 스위치, 슬라이더 등에 사용
+        -->
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorSecondaryVariant">@color/secondary_variant</item>
+        <item name="colorOnSecondary">@color/on_secondary</item>
+
+        <!-- ============================================================ -->
+        <!-- 배경 및 표면 색상 -->
+        <!-- ============================================================ -->
+
+        <!--
+            배경 색상
+            - 앱 전체 배경
+        -->
+        <item name="android:colorBackground">@color/background</item>
+
+        <!--
+            Surface 색상
+            - 카드, 시트, 메뉴 등의 표면
+        -->
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/on_surface</item>
+
+        <!-- ============================================================ -->
+        <!-- 상태 표시 색상 -->
+        <!-- ============================================================ -->
+
+        <!--
+            오류 색상
+            - 유효성 검사 실패, 오류 메시지
+        -->
+        <item name="colorError">@color/error</item>
+
+        <!-- ============================================================ -->
+        <!-- 시스템 UI 색상 -->
+        <!-- ============================================================ -->
+
+        <!--
+            상태바 색상
+            - 화면 상단 시스템 상태바
+        -->
+        <item name="android:statusBarColor">@color/primary_variant</item>
+
+        <!--
+            네비게이션바 색상
+            - 화면 하단 시스템 네비게이션바
+        -->
+        <item name="android:navigationBarColor">@color/background</item>
+
+        <!-- ============================================================ -->
+        <!-- 텍스트 스타일 -->
+        <!-- ============================================================ -->
+
+        <!--
+            기본 텍스트 색상
+        -->
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+        <item name="android:textColorHint">@color/text_hint</item>
+    </style>
+
+    <!-- ============================================================ -->
+    <!-- 버튼 스타일 -->
+    <!-- ============================================================ -->
+
+    <!--
+        큰 버튼 스타일 (트리거 버튼용)
+
+        [특징]
+        - 큰 텍스트
+        - 둥근 모서리
+        - 눈에 띄는 배경색
+    -->
+    <style name="Widget.DispenserTrigger.Button.Large" parent="Widget.MaterialComponents.Button">
+        <item name="android:minHeight">80dp</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="cornerRadius">16dp</item>
+        <item name="backgroundTint">@color/trigger_button_color</item>
+    </style>
+
+    <!--
+        외곽선 버튼 스타일 (보조 버튼용)
+    -->
+    <style name="Widget.DispenserTrigger.Button.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:minWidth">120dp</item>
+    </style>
+
+    <!--
+        텍스트 버튼 스타일 (덜 중요한 버튼용)
+    -->
+    <style name="Widget.DispenserTrigger.Button.Text" parent="Widget.MaterialComponents.Button.TextButton">
+        <!-- 기본 스타일 사용 -->
+    </style>
+
+    <!-- ============================================================ -->
+    <!-- 텍스트 스타일 -->
+    <!-- ============================================================ -->
+
+    <!--
+        텍스트 베이스 스타일
+    -->
+    <style name="Widget.DispenserTrigger.Text" parent="android:Widget.TextView" />
+
+    <!--
+        상태 표시 텍스트 스타일
+    -->
+    <style name="Widget.DispenserTrigger.Text.Status" parent="Widget.DispenserTrigger.Text">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">12dp</item>
+    </style>
+
+    <!--
+        로그 텍스트 스타일
+    -->
+    <style name="Widget.DispenserTrigger.Text.Log" parent="Widget.DispenserTrigger.Text">
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineSpacingExtra">4dp</item>
+        <item name="android:textColor">@color/log_text</item>
+    </style>
+
+    <!--
+        라벨 텍스트 스타일
+    -->
+    <style name="Widget.DispenserTrigger.Text.Label" parent="Widget.DispenserTrigger.Text">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
+</resources>

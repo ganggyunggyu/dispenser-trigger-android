@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    strings.xml
+
+    앱에서 사용하는 모든 문자열 정의.
+
+    [왜 문자열을 분리하는가]
+    1. 다국어 지원: values-ko, values-en 등 폴더 추가로 쉬운 번역
+    2. 일관성: 같은 텍스트가 여러 곳에서 사용될 때 한 곳에서 관리
+    3. 유지보수: 텍스트 변경 시 코드 수정 없이 이 파일만 수정
+    4. 접근성: 스크린 리더에서 사용
+
+    [명명 규칙]
+    - snake_case 사용
+    - 용도 기반: btn_*, label_*, msg_*, error_* 등
+    - 화면별 접두사: main_*, settings_* 등
+
+    [수정 시 참고]
+    - 문자열에 변수 삽입: %1$s, %2$d 등 사용
+    - 복수형 처리: plurals 사용
+    - HTML 태그 사용 시: CDATA로 감싸기
+-->
+<resources>
+    <!-- ============================================================ -->
+    <!-- 앱 기본 정보 -->
+    <!-- ============================================================ -->
+
+    <!--
+        앱 이름
+        - 런처 아이콘 아래 표시
+        - 앱 설정 화면에서 표시
+    -->
+    <string name="app_name">배출기 트리거</string>
+
+    <!-- ============================================================ -->
+    <!-- 연결 상태 메시지 -->
+    <!-- ============================================================ -->
+
+    <!--
+        연결됨 상태
+        - %1$s: 장치 이름 (예: "FT232R")
+    -->
+    <string name="status_connected">연결됨: %1$s</string>
+
+    <!--
+        연결 안됨 상태
+    -->
+    <string name="status_disconnected">연결 안됨</string>
+
+    <!--
+        연결 확인 중 상태
+    -->
+    <string name="status_checking">연결 확인 중...</string>
+
+    <!--
+        연결 시도 중 상태
+    -->
+    <string name="status_connecting">연결 시도 중...</string>
+
+    <!-- ============================================================ -->
+    <!-- 버튼 텍스트 -->
+    <!-- ============================================================ -->
+
+    <!--
+        트리거 버튼
+        - 메인 화면 중앙의 큰 버튼
+        - 배출기에 트리거 명령 전송
+    -->
+    <string name="trigger">TRIGGER</string>
+
+    <!--
+        연결 버튼
+        - 연결 안됨 상태에서 표시
+    -->
+    <string name="connect">연결</string>
+
+    <!--
+        연결 해제 버튼
+        - 연결됨 상태에서 표시
+    -->
+    <string name="disconnect">연결 해제</string>
+
+    <!--
+        로그 클리어 버튼
+    -->
+    <string name="clear_log">로그 클리어</string>
+
+    <!--
+        재시도 버튼
+    -->
+    <string name="retry">재시도</string>
+
+    <!--
+        취소 버튼
+    -->
+    <string name="cancel">취소</string>
+
+    <!--
+        확인 버튼
+    -->
+    <string name="ok">확인</string>
+
+    <!-- ============================================================ -->
+    <!-- 라벨 텍스트 -->
+    <!-- ============================================================ -->
+
+    <!--
+        로그 영역 라벨
+    -->
+    <string name="log_label">로그</string>
+
+    <!--
+        장치 목록 라벨
+    -->
+    <string name="devices_label">USB 장치 목록</string>
+
+    <!-- ============================================================ -->
+    <!-- 로그 메시지 -->
+    <!-- ============================================================ -->
+
+    <!--
+        앱 시작
+    -->
+    <string name="log_app_started">앱 시작됨</string>
+
+    <!--
+        USB 장치 연결 요청
+    -->
+    <string name="log_connect_device">USB-Serial 장치를 연결해주세요</string>
+
+    <!--
+        장치 탐색 중
+    -->
+    <string name="log_scanning">USB 장치 탐색 중...</string>
+
+    <!--
+        장치 발견
+        - %1$d: 장치 수
+    -->
+    <string name="log_devices_found">%1$d개 장치 발견</string>
+
+    <!--
+        장치 없음
+    -->
+    <string name="log_no_devices">USB-Serial 장치가 없습니다</string>
+
+    <!--
+        연결 성공
+        - %1$s: 장치 이름
+    -->
+    <string name="log_connected">연결됨: %1$s</string>
+
+    <!--
+        연결 해제
+        - %1$s: 해제 이유
+    -->
+    <string name="log_disconnected">연결 해제: %1$s</string>
+
+    <!--
+        트리거 전송 중
+    -->
+    <string name="log_sending_trigger">트리거 명령 전송 중...</string>
+
+    <!--
+        전송 완료
+        - %1$d: 전송 바이트 수
+    -->
+    <string name="log_sent">전송 완료: %1$d바이트</string>
+
+    <!--
+        권한 요청 중
+    -->
+    <string name="log_requesting_permission">USB 권한 요청 중...</string>
+
+    <!--
+        권한 허용됨
+    -->
+    <string name="log_permission_granted">USB 권한 허용됨</string>
+
+    <!--
+        권한 거부됨
+    -->
+    <string name="log_permission_denied">USB 권한 거부됨</string>
+
+    <!-- ============================================================ -->
+    <!-- 오류 메시지 -->
+    <!-- ============================================================ -->
+
+    <!--
+        연결 오류
+    -->
+    <string name="error_connection_failed">장치 연결에 실패했습니다</string>
+
+    <!--
+        전송 오류
+    -->
+    <string name="error_send_failed">명령 전송에 실패했습니다</string>
+
+    <!--
+        권한 오류
+    -->
+    <string name="error_no_permission">USB 권한이 없습니다</string>
+
+    <!--
+        장치 없음 오류
+    -->
+    <string name="error_no_device">USB-Serial 장치를 찾을 수 없습니다</string>
+
+    <!--
+        연결 안됨 경고
+    -->
+    <string name="error_not_connected">연결되지 않은 상태입니다</string>
+
+    <!-- ============================================================ -->
+    <!-- 다이얼로그 제목 -->
+    <!-- ============================================================ -->
+
+    <!--
+        USB 권한 요청 다이얼로그
+    -->
+    <string name="dialog_usb_permission_title">USB 접근 권한</string>
+
+    <!--
+        장치 선택 다이얼로그
+    -->
+    <string name="dialog_select_device_title">장치 선택</string>
+
+    <!-- ============================================================ -->
+    <!-- 다이얼로그 메시지 -->
+    <!-- ============================================================ -->
+
+    <!--
+        USB 권한 설명
+    -->
+    <string name="dialog_usb_permission_message">
+        배출기와 통신하기 위해 USB 장치에 대한 접근 권한이 필요합니다.
+    </string>
+
+    <!--
+        권한 거부 시 안내
+    -->
+    <string name="dialog_permission_denied_message">
+        USB 권한이 거부되었습니다.\n설정에서 권한을 허용해주세요.
+    </string>
+
+    <!-- ============================================================ -->
+    <!-- 접근성 설명 (contentDescription) -->
+    <!-- ============================================================ -->
+
+    <!--
+        트리거 버튼 설명
+        - 스크린 리더에서 읽음
+    -->
+    <string name="trigger_button_description">배출기 트리거 실행 버튼</string>
+
+    <!--
+        연결 상태 설명
+    -->
+    <string name="status_description">현재 USB 연결 상태</string>
+
+    <!--
+        로그 영역 설명
+    -->
+    <string name="log_description">통신 로그 출력 영역</string>
+
+    <!-- ============================================================ -->
+    <!-- 토스트 메시지 -->
+    <!-- ============================================================ -->
+
+    <!--
+        트리거 성공
+    -->
+    <string name="toast_trigger_success">트리거 명령 전송 완료</string>
+
+    <!--
+        트리거 실패
+    -->
+    <string name="toast_trigger_failed">트리거 명령 전송 실패</string>
+
+    <!--
+        로그 클리어 완료
+    -->
+    <string name="toast_log_cleared">로그가 초기화되었습니다</string>
+
+</resources>

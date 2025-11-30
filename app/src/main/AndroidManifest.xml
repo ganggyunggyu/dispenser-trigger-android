@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    AndroidManifest.xml
+
+    앱의 핵심 설정 파일로, 시스템에 앱 정보를 알려주는 역할.
+
+    [이 파일에서 정의하는 것들]
+    1. 앱 패키지명 및 버전 정보
+    2. 필요한 하드웨어 기능 (USB Host)
+    3. 권한 요청
+    4. Activity, Service 등 컴포넌트 등록
+    5. Intent Filter (USB 연결 이벤트 수신)
+
+    [USB Host 관련 설정]
+    - uses-feature: USB Host 하드웨어 기능 필요 명시
+    - intent-filter: USB 장치 연결 시 앱 자동 실행 또는 권한 요청
+
+    [수정 시 참고]
+    - USB 장치 필터링을 더 엄격하게 하려면 res/xml/device_filter.xml 파일 수정
+    - 다른 Activity 추가 시 여기에 등록 필요
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!--
+        USB Host 하드웨어 기능 요구 선언
+
+        [왜 필요한가]
+        - 이 앱은 USB-Serial 어댑터와 통신해야 함
+        - USB Host 모드: 안드로이드 기기가 USB 호스트 역할 (외부 장치 연결)
+        - android:required="true": 이 기능이 없는 기기에서는 설치 불가
+
+        [대체 가능성]
+        - required="false"로 변경하면 기능 없는 기기에도 설치 가능
+        - 하지만 이 앱은 USB 없이는 무의미하므로 true 권장
+    -->
+    <uses-feature
+        android:name="android.hardware.usb.host"
+        android:required="true" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.DispenserTrigger"
+        tools:targetApi="34">
+
+        <!--
+            MainActivity - 앱의 메인 화면
+
+            [Intent Filter 설명]
+            1. MAIN + LAUNCHER: 앱 아이콘 클릭 시 이 Activity 실행
+            2. USB_DEVICE_ATTACHED: USB 장치 연결 시 이 Activity로 이벤트 전달
+
+            [meta-data: device_filter]
+            - USB 장치 연결 시 어떤 장치에 반응할지 필터링
+            - res/xml/device_filter.xml에서 Vendor ID, Product ID 등 지정 가능
+            - 현재는 모든 USB Serial 장치에 반응하도록 설정
+        -->
+        <activity
+            android:name=".ui.MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:configChanges="orientation|screenSize|keyboardHidden">
+
+            <!-- 앱 런처에서 실행 가능하도록 설정 -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!--
+                USB 장치 연결 이벤트 수신
+
+                [동작 방식]
+                1. USB-Serial 어댑터를 갤럭시 탭에 연결
+                2. 시스템이 device_filter.xml과 매칭되는 장치인지 확인
+                3. 매칭되면 이 Activity에 USB_DEVICE_ATTACHED 인텐트 전달
+                4. Activity에서 USB 권한 요청 및 포트 오픈 진행
+
+                [주의사항]
+                - 이 필터가 있으면 USB 연결 시 앱이 자동으로 선택됨
+                - 여러 앱이 같은 필터를 가지면 사용자에게 선택 다이얼로그 표시
+            -->
+            <intent-filter>
+                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
+            </intent-filter>
+
+            <!--
+                USB 장치 필터 메타데이터
+
+                [device_filter.xml 역할]
+                - 연결된 USB 장치 중 어떤 장치에 반응할지 결정
+                - Vendor ID, Product ID로 특정 장치만 필터링 가능
+                - 현재 설정: FTDI, PL2303, CH34x, CP210x 등 주요 USB-Serial 칩셋
+            -->
+            <meta-data
+                android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
+                android:resource="@xml/device_filter" />
+
+        </activity>
+    </application>
+
+</manifest>

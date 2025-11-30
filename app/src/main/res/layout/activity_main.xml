@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    activity_main.xml
+
+    앱의 메인 화면 레이아웃.
+
+    [구조]
+    ┌─────────────────────────────────┐
+    │         연결 상태 표시            │  ← statusTextView
+    ├─────────────────────────────────┤
+    │                                 │
+    │      [    TRIGGER 버튼    ]      │  ← triggerButton (크고 중앙 배치)
+    │                                 │
+    ├─────────────────────────────────┤
+    │  [연결] [로그 클리어]             │  ← 버튼 영역 (선택적)
+    ├─────────────────────────────────┤
+    │                                 │
+    │         로그 출력 영역            │  ← logScrollView > logTextView
+    │                                 │
+    └─────────────────────────────────┘
+
+    [설계 의도]
+    - 트리거 버튼: 크고 눈에 띄게, 터치하기 쉽게
+    - 연결 상태: 상단에 항상 보이게
+    - 로그: 스크롤 가능, 디버깅 및 상태 확인용
+
+    [수정 시 참고]
+    - ViewBinding 사용 중이므로 ID 변경 시 Kotlin 코드도 수정
+    - 태블릿 대응: 큰 화면에서도 적절한 크기 유지
+    - 다크 모드: colors.xml에서 색상 정의, 테마에서 자동 적용
+-->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@color/background"
+    tools:context=".ui.MainActivity">
+
+    <!--
+        연결 상태 표시 TextView
+
+        [역할]
+        - 현재 USB-Serial 연결 상태 표시
+        - "연결됨: FT232R" 또는 "연결 안됨"
+
+        [스타일]
+        - 큰 텍스트 (20sp)
+        - 연결됨: 초록색, 연결 안됨: 빨간색
+        - 중앙 정렬
+    -->
+    <TextView
+        android:id="@+id/statusTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="12dp"
+        android:text="@string/status_disconnected"
+        android:textColor="@color/disconnected_red"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:background="@drawable/status_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="연결 상태: 확인 중" />
+
+    <!--
+        TRIGGER 버튼
+
+        [역할]
+        - 클릭 시 배출기에 트리거 명령 전송
+        - 앱의 핵심 기능
+
+        [스타일]
+        - 크고 눈에 띄는 버튼
+        - 화면 중앙 배치
+        - 최소 터치 영역 확보 (60dp 높이)
+        - 활성화/비활성화 상태에 따른 시각적 피드백
+
+        [접근성]
+        - contentDescription으로 스크린 리더 지원
+    -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/triggerButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="16dp"
+        android:minHeight="80dp"
+        android:text="@string/trigger"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:contentDescription="@string/trigger_button_description"
+        app:backgroundTint="@color/trigger_button_color"
+        app:cornerRadius="16dp"
+        app:layout_constraintBottom_toTopOf="@id/buttonContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/statusTextView"
+        app:layout_constraintVertical_bias="0.3"
+        tools:text="TRIGGER" />
+
+    <!--
+        버튼 컨테이너 (연결, 로그 클리어)
+
+        [역할]
+        - 부가 기능 버튼들 배치
+        - 수평으로 균등 배치
+
+        [포함 버튼]
+        - connectButton: 수동 연결/해제
+        - clearLogButton: 로그 초기화
+    -->
+    <LinearLayout
+        android:id="@+id/buttonContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/triggerButton">
+
+        <!--
+            연결 버튼
+
+            [역할]
+            - 수동으로 USB 장치 연결/해제
+            - 자동 연결이 안 될 때 사용
+
+            [텍스트]
+            - 연결 안됨 상태: "연결"
+            - 연결됨 상태: "연결 해제"
+        -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/connectButton"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:minWidth="120dp"
+            android:text="@string/connect"
+            tools:text="연결" />
+
+        <!--
+            로그 클리어 버튼
+
+            [역할]
+            - 로그 텍스트뷰 내용 초기화
+            - 디버깅 시 로그가 너무 길어지면 사용
+        -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/clearLogButton"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/clear_log"
+            tools:text="로그 클리어" />
+
+    </LinearLayout>
+
+    <!--
+        로그 라벨
+
+        [역할]
+        - 로그 영역임을 표시
+    -->
+    <TextView
+        android:id="@+id/logLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/log_label"
+        android:textColor="@color/text_secondary"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonContainer" />
+
+    <!--
+        로그 스크롤뷰
+
+        [역할]
+        - 로그 텍스트가 화면보다 길어지면 스크롤
+        - 새 로그 추가 시 자동으로 아래로 스크롤
+
+        [fillViewport]
+        - true: 내용이 짧아도 전체 영역 채움
+        - 시각적 일관성 유지
+    -->
+    <ScrollView
+        android:id="@+id/logScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/log_background"
+        android:padding="12dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logLabel">
+
+        <!--
+            로그 텍스트뷰
+
+            [역할]
+            - 모든 로그 메시지 표시
+            - 타임스탬프 + 메시지 형식
+
+            [스타일]
+            - 모노스페이스 폰트: 로그 가독성
+            - 작은 텍스트 (12sp): 많은 정보 표시
+            - selectable: 텍스트 복사 가능
+        -->
+        <TextView
+            android:id="@+id/logTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:lineSpacingExtra="4dp"
+            android:text=""
+            android:textColor="@color/log_text"
+            android:textIsSelectable="true"
+            android:textSize="12sp"
+            tools:text="[12:34:56.789] 앱 시작됨\n[12:34:56.790] USB 장치 탐색 중..." />
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

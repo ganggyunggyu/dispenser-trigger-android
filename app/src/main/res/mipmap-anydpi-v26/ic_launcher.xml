@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    ic_launcher.xml (Adaptive Icon)
+
+    Android 8.0+ 적응형 아이콘 정의.
+
+    [적응형 아이콘이란]
+    - 전경(foreground)과 배경(background) 레이어로 구성
+    - 기기 제조사별로 다른 모양(원형, 사각형 등) 적용 가능
+    - 시스템이 두 레이어를 합성하여 아이콘 생성
+
+    [수정 시 참고]
+    - 실제 아이콘 이미지는 ic_launcher_foreground.xml에서 정의
+    - 배경색은 ic_launcher_background.xml 또는 색상 리소스로 지정
+-->
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 배경 레이어: 단색 또는 이미지 -->
+    <background android:drawable="@color/primary" />
+
+    <!-- 전경 레이어: 아이콘 이미지 -->
+    <foreground android:drawable="@drawable/ic_launcher_foreground" />
+</adaptive-icon>

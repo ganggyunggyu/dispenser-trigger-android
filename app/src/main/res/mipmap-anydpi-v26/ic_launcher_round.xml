@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    ic_launcher_round.xml (Round Adaptive Icon)
+
+    원형 런처용 적응형 아이콘.
+    일부 기기(Pixel 등)에서 원형 아이콘으로 표시될 때 사용.
+-->
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@color/primary" />
+    <foreground android:drawable="@drawable/ic_launcher_foreground" />
+</adaptive-icon>
